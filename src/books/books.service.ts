@@ -21,11 +21,27 @@ export class BooksService {
     return `This action returns a #${id} book`;
   }
 
-  update(id: number, updateBookDto: UpdateBookDto) {
-    return `This action updates a #${id} book`;
+  async update(id: number, updateBookDto: UpdateBookDto) {
+    const book = await this.bookModel.update(updateBookDto, {
+      where: {
+        id,
+      },
+    });
+    return { ...updateBookDto, id };
   }
 
-  remove(id: number) {
+  async full_update(id: number, updateBookDto: CreateBookDto) {
+    const book = await this.bookModel.findByPk(id);
+    if (!book) {
+      throw new Error('Книгу не знайдено');
+    }
+
+    await book.update(updateBookDto);
+    return book;
+  }
+
+  async remove(id: number) {
+    await this.bookModel.destroy({ where: { id } });
     return `This action removes a #${id} book`;
   }
 }

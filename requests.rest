@@ -16,5 +16,25 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/books/19
+DELETE http://localhost:3000/books/1
+
+###
+
+PATCH  http://localhost:3000/books/1
+Content-Type: application/json
+
+{
+    "title":"New Book Test"
+}
+
+
+###
+
+PUT  http://localhost:3000/books/1
+Content-Type: application/json
+
+{
+    "title":"New Book Test",
+    "author":"New Author Test"
+}
 
